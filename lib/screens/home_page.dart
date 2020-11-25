@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pickupfootball/create_game.dart';
+import 'package:pickupfootball/screens/create_game.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -27,7 +27,9 @@ class HomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => CreateGameSettings()))
                 },
-                child: Text("Create New Game"),
+                child: Text(
+                  "Create New Game",
+                ),
                 padding: EdgeInsets.all(30),
               ),
               SizedBox(
