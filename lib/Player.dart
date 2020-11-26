@@ -13,11 +13,7 @@ class Player{
     _name = value;
   }
 
-  Player(String name, String position, {admin=false}){
-    _name = name;
-    _position = position;
-    _admin = admin;
-  }
+  Player(this._name, this._position, [this._admin = false]);
 
   bool get admin => _admin;
 

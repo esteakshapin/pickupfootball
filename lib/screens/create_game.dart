@@ -205,7 +205,7 @@ class _CreateGameSettingsState extends State<CreateGameSettings> {
                                   MaterialPageRoute(
                                       builder: (context) => LobbyPage(
                                           Player(_position_value,
-                                              name_controller.text, admin: true),
+                                              name_controller.text, true),
                                           Settings(_qb_playing_offense_defense,
                                               _rotate_aft_drive, _score_amt))))
                             }

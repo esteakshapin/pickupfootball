@@ -133,9 +133,10 @@ class _LobbyInfoState extends State<LobbyInfo> {
                   onPressed: (){
                     print('pressed');
                     if (validator()){
+                      widget._add_player(Player(_name_controller.text, _position_value));
                       _name_controller.text = "";
                       _position_value = null;
-                      widget._add_player(Player(_name_controller.text, _position_value));
+
 
                     }else{
                       setState(() {

@@ -34,8 +34,7 @@ class PlayerCard extends StatelessWidget {
         maxWidth: 400,
       ),
       child: ListTile(
-          contentPadding: EdgeInsets.all(10),
-          leading: Icon(Icons.sports_football),
+          leading: (_player.position == Player.QB) ? Icon(Icons.sports_football) : (_player.position == Player.WR) ? Icon(Icons.sports_kabaddi_sharp) : Icon(Icons.directions_run_sharp),
           title: Text(_player.name),
           subtitle: _player.admin
               ? Text(_player.position + " - " + "ADMIN")

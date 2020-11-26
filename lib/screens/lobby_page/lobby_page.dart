@@ -18,6 +18,7 @@ class LobbyPage extends StatefulWidget {
 
   LobbyPage(Player admin, Settings settings){
     _admin = admin;
+    _admin.admin = true;
     players.add(admin);
     _settings = settings;
   }
@@ -25,6 +26,14 @@ class LobbyPage extends StatefulWidget {
 
 class _LobbyPageState extends State<LobbyPage> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    print(widget.players);
+    print(widget.players[0].admin);
+  }
 
   void addPlayers(Player p){
     setState(() {
