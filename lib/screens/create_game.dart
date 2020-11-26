@@ -1,10 +1,11 @@
 import 'dart:html';
-import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:pickupfootball/screens/loby_page.dart';
+import 'package:pickupfootball/entry_points/main.dart';
+import 'package:pickupfootball/screens/lobby_page/lobby_page.dart';
+import 'package:pickupfootball/settings.dart';
 
 import '../Player.dart';
 
@@ -102,19 +103,19 @@ class _CreateGameSettingsState extends State<CreateGameSettings> {
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Radio(
-                        value: "WR",
+                        value: Player.WR,
                         groupValue: _position_value,
                         onChanged: handle_position,
                       ),
                       Text("WR"),
                       Radio(
-                        value: "QB",
+                        value: Player.QB,
                         groupValue: _position_value,
                         onChanged: handle_position,
                       ),
                       Text("QB"),
                       Radio(
-                        value: "RB",
+                        value: Player.RB,
                         groupValue: _position_value,
                         onChanged: handle_position,
                       ),
@@ -202,8 +203,11 @@ class _CreateGameSettingsState extends State<CreateGameSettings> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          LobyPage(Player(_position_value, name_controller.text))))
+                                      builder: (context) => LobbyPage(
+                                          Player(_position_value,
+                                              name_controller.text, admin: true),
+                                          Settings(_qb_playing_offense_defense,
+                                              _rotate_aft_drive, _score_amt))))
                             }
                           else
                             {

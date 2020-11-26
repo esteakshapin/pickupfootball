@@ -1,6 +1,11 @@
 class Player{
+  static String QB = "QB";
+  static String WR = "WR";
+  static String RB = "RB";
+
   String _name;
   String _position;
+  bool _admin;
 
   String get name => _name;
 
@@ -8,9 +13,16 @@ class Player{
     _name = value;
   }
 
-  Player(String name, String position){
+  Player(String name, String position, {admin=false}){
     _name = name;
     _position = position;
+    _admin = admin;
+  }
+
+  bool get admin => _admin;
+
+  set admin(bool value) {
+    _admin = value;
   }
 
   String get position => _position;
