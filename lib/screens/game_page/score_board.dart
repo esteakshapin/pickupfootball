@@ -8,6 +8,11 @@ import '../../settings.dart';
 import 'ScoreWidget.dart';
 
 class ScoreBoard extends StatefulWidget {
+  Function _endDrive;
+  bool _possession;
+
+  ScoreBoard(this._endDrive, this._possession);
+
   @override
   _ScoreBoardState createState() => _ScoreBoardState();
 }
@@ -95,8 +100,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ScoreWidget("HOME", "02", true),
-              ScoreWidget("AWAY", "00", false),
+              ScoreWidget("HOME", "02", widget._possession),
+              ScoreWidget("AWAY", "00", !widget._possession),
             ],
           ),
           SizedBox(
@@ -107,6 +112,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
             children: [
               RaisedButton(
                 child: Text("End Drive"),
+                onPressed: () => widget._endDrive(),
               ),
               RaisedButton(
                 child: Text("End Game"),

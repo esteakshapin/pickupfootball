@@ -7,9 +7,11 @@ import '../../settings.dart';
 class OnField extends StatelessWidget {
   List<Player> on_field = new List<Player>();
   String _title;
-  Color _tile_color;
+  Color _tile_color, rotationTileColor, qbTileColor;
+  int num_of_rotation;
+  IconData tile_icon;
 
-  OnField(this.on_field, this._title, this._tile_color);
+  OnField(this.on_field, this._title, this._tile_color, {this.rotationTileColor, this.qbTileColor, this.num_of_rotation = 0, this.tile_icon = Icons.delete_forever_sharp});
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +42,28 @@ class OnField extends StatelessWidget {
             child: ListView(
               children: [
                 for (var p in on_field)
+                  (p.position == Player.QB && qbTileColor != null) ?
                   PlayerCard(
                     p,
                     (Player p) {
                       print(p.name);
                     },
+                    tile_color: qbTileColor,
+                    tile_icon: tile_icon,
+                  ) : (on_field.indexOf(p) < num_of_rotation && rotationTileColor != null) ? PlayerCard(
+                    p,
+                        (Player p) {
+                      print(p.name);
+                    },
+                    tile_color: rotationTileColor,
+                    tile_icon: tile_icon,
+                  ) : PlayerCard(
+                    p,
+                        (Player p) {
+                      print(p.name);
+                    },
                     tile_color: _tile_color,
+                    tile_icon: tile_icon,
                   )
               ],
             ),

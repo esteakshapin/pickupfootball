@@ -17,7 +17,7 @@ class GamePageEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     players.add(Player(faker.person.name(), Player.QB, true));
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 8; i++){
       players.add(Player(faker.person.name(), Player.WR));
     }
     return MaterialApp(

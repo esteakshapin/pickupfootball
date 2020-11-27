@@ -2,18 +2,21 @@ import 'dart:ui';
 
 class Settings{
   bool _qb_playing_offense_and_defense;
-  int _rotate_after_drive, _score_amnt, _num_of_players_on_field;
+  int _rotate_num_of_people, _score_amnt, _num_of_players_on_field;
   bool _starting_possesion;
 
   static final Color darkGreen = Color(0xFF405d3a);
-  static final Color lightGreen = Color(0xFFa6c64c);
-  static final Color darkRed = Color(0xFFc80003);
+  static final Color lightGreen = Color(0xFF109648);
+  static final Color apricot = Color(0xFFFFC9AD);
   static final Color lightRed = Color(0xFFff955f);
   static final Color lightBlue = Color(0xFF86c6be);
+  static final Color slateGray = Color.fromRGBO(107, 113, 126, 1);
+  static final Color cream = Color(0xFFF3FFBD);
+  static final Color firebrick = Color(0xFFAB3428);
+  static final Color emerald = Color(0xFF21E874);
 
 
-
-  Settings(this._qb_playing_offense_and_defense, this._rotate_after_drive,
+  Settings(this._qb_playing_offense_and_defense, this._rotate_num_of_people,
       this._score_amnt, this._starting_possesion, this._num_of_players_on_field);
 
   get num_of_players_on_field => _num_of_players_on_field;
@@ -28,10 +31,10 @@ class Settings{
     _starting_possesion = value;
   }
 
-  int get rotate_after_drive => _rotate_after_drive;
+  int get rotate_num_of_people => _rotate_num_of_people;
 
-  set rotate_after_drive(int value) {
-    _rotate_after_drive = value;
+  set rotate_num_of_people(int value) {
+    _rotate_num_of_people = value;
   }
 
   bool get qb_playing_offense_and_defense => _qb_playing_offense_and_defense;

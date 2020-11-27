@@ -6,8 +6,9 @@ class PlayerCard extends StatelessWidget {
   Player _player;
   Function _removePlayer;
   Color tile_color;
+  IconData tile_icon;
 
-  PlayerCard(this._player, this._removePlayer, {this.tile_color = null});
+  PlayerCard(this._player, this._removePlayer, {this.tile_color = null, this.tile_icon = Icons.delete_forever_sharp});
 
   Icon leadingIcon(String position){
     switch(position){
@@ -40,7 +41,7 @@ class PlayerCard extends StatelessWidget {
             ? Text(_player.position + " - " + "ADMIN")
             : Text(_player.position),
         trailing: (!_player.admin) ? IconButton(
-          icon: Icon(Icons.delete_forever_sharp),
+          icon: Icon(tile_icon),
           onPressed: (){
             _removePlayer(_player);
           },
