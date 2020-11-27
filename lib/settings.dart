@@ -2,7 +2,7 @@ import 'dart:ui';
 
 class Settings{
   bool _qb_playing_offense_and_defense;
-  int _rotate_after_drive, _score_amnt, _num_of_players__on_field;
+  int _rotate_after_drive, _score_amnt, _num_of_players_on_field;
   bool _starting_possesion;
 
   static final Color darkGreen = Color(0xFF405d3a);
@@ -14,12 +14,12 @@ class Settings{
 
 
   Settings(this._qb_playing_offense_and_defense, this._rotate_after_drive,
-      this._score_amnt, this._starting_possesion, this._num_of_players__on_field);
+      this._score_amnt, this._starting_possesion, this._num_of_players_on_field);
 
-  get num_of_players__on_field => _num_of_players__on_field;
+  get num_of_players_on_field => _num_of_players_on_field;
 
-  set num_of_players__on_field(value) {
-    _num_of_players__on_field = value;
+  set num_of_players_on_field(value) {
+    _num_of_players_on_field = value;
   }
 
   bool get starting_possesion => _starting_possesion;

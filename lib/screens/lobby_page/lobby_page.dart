@@ -55,6 +55,15 @@ class _LobbyPageState extends State<LobbyPage> {
     });
   }
 
+  bool _one_qb_check(){
+    int counter = 0;
+    for(Player player in widget.players){
+      if(player.position == Player.QB) counter++;
+    }
+    if(counter > 1) return false;
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return OKToast(
@@ -82,7 +91,7 @@ class _LobbyPageState extends State<LobbyPage> {
                   onPressed: () {
                     print('pressed start game');
                     if (widget.players.length >=
-                        widget._settings.num_of_players__on_field) {
+                        widget._settings.num_of_players_on_field && _one_qb_check()) {
                       Navigator.of(context).pop();
                       Navigator.push(
                           context,
@@ -93,9 +102,9 @@ class _LobbyPageState extends State<LobbyPage> {
                       setState(() {
                         showToast(
                           " Please make sure to have at least " +
-                              widget._settings.num_of_players__on_field
+                              widget._settings.num_of_players_on_field
                                   .toString() +
-                              " players",
+                              " players and at most one QB",
                           position: ToastPosition.center,
                         );
                       });
