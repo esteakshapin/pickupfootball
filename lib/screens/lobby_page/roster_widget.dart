@@ -2,43 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../Player.dart';
+import '../../player_card.dart';
 
 class RosterWidget extends StatelessWidget {
   List<Player> players = new List<Player>();
+  Function _removePlayer;
 
-  RosterWidget(this.players);
+  RosterWidget(this.players, this._removePlayer);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Roster",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return Expanded(
+      child: Container(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Roster",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "Number of players: " +
+                  players.length.toString()
+                )
+              ],
+            ),
+
+            Expanded(
+              child: ListView(
+                    children: [
+                      for (var i in players) PlayerCard(i, _removePlayer)
+                    ],
+                  ),
+            )
+          ],
         ),
-        for (var i in players) PlayerCard(i)
-      ],
-    );
-  }
-}
-
-class PlayerCard extends StatelessWidget {
-  Player _player;
-
-  PlayerCard(this._player);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        maxWidth: 400,
       ),
-      child: ListTile(
-          leading: (_player.position == Player.QB) ? Icon(Icons.sports_football) : (_player.position == Player.WR) ? Icon(Icons.sports_kabaddi_sharp) : Icon(Icons.directions_run_sharp),
-          title: Text(_player.name),
-          subtitle: _player.admin
-              ? Text(_player.position + " - " + "ADMIN")
-              : Text(_player.position)),
     );
   }
 }
+

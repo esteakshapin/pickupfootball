@@ -18,7 +18,7 @@ class LobbyPageEntry extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LobbyPage(Player("John Joe", "QB"), Settings("Yes", 1, 1)),
+      home: LobbyPage(Player("John Joe", "QB", true), Settings(true, 1, 1, true, 6)),
     );
   }
 }

@@ -1,9 +1,32 @@
+import 'dart:ui';
+
 class Settings{
-  String _qb_playing_offense_and_defense;
-  int _rotate_after_drive, _score_amnt;
+  bool _qb_playing_offense_and_defense;
+  int _rotate_after_drive, _score_amnt, _num_of_players__on_field;
+  bool _starting_possesion;
+
+  static final Color darkGreen = Color(0xFF405d3a);
+  static final Color lightGreen = Color(0xFFa6c64c);
+  static final Color darkRed = Color(0xFFc80003);
+  static final Color lightRed = Color(0xFFff955f);
+  static final Color lightBlue = Color(0xFF86c6be);
+
+
 
   Settings(this._qb_playing_offense_and_defense, this._rotate_after_drive,
-      this._score_amnt);
+      this._score_amnt, this._starting_possesion, this._num_of_players__on_field);
+
+  get num_of_players__on_field => _num_of_players__on_field;
+
+  set num_of_players__on_field(value) {
+    _num_of_players__on_field = value;
+  }
+
+  bool get starting_possesion => _starting_possesion;
+
+  set starting_possesion(bool value) {
+    _starting_possesion = value;
+  }
 
   int get rotate_after_drive => _rotate_after_drive;
 
@@ -11,9 +34,9 @@ class Settings{
     _rotate_after_drive = value;
   }
 
-  String get qb_playing_offense_and_defense => _qb_playing_offense_and_defense;
+  bool get qb_playing_offense_and_defense => _qb_playing_offense_and_defense;
 
-  set qb_playing_offense_and_defense(String value) {
+  set qb_playing_offense_and_defense(bool value) {
     _qb_playing_offense_and_defense = value;
   }
 

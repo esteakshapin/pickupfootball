@@ -1,7 +1,7 @@
 class Player{
-  static String QB = "QB";
-  static String WR = "WR";
-  static String RB = "RB";
+  static final String QB = "QB";
+  static final String WR = "WR";
+  static final String RB = "RB";
 
   String _name;
   String _position;
