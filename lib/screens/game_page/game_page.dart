@@ -24,11 +24,38 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   List<Player> _players;
   Settings _settings;
+  bool _possession;
 
-  List<Player> _on_field_players = new List<Player>();
-  List<Player> _on_bench_players = new List<Player>();
+  Queue<Player> _on_field_players;
+  Queue<Player> _on_bench_players;
+
   List<Player> _full_roster = new List<Player>();
   Player _qb;
+
+  Player removeBenchPlayer(){
+    return _on_bench_players.removeFirst();
+  }
+
+  void addBenchPlayer(Player p){
+    _on_bench_players.add(p);
+  }
+
+  Player removeOnFieldPlayer(){
+    return _on_field_players.removeFirst();
+  }
+
+  void addOnFieldPlayer(Player p){
+    _on_field_players.add(p);
+  }
+
+  void offensiveTransition(){
+    _on_bench_players.remove(_qb);
+    Player temp_p = removeBenchPlayer();
+    Player temp_d_p = removeOnFieldPlayer();
+    Player temp_d_p2 = removeOnFieldPlayer();
+
+
+  }
 
   @override
   void initState() {
@@ -43,8 +70,16 @@ class _GamePageState extends State<GamePage> {
     }
     print(_qb.name);
     _players = _shuffle_players(_players);
-    _on_field_players = _players.sublist(0, _settings.num_of_players_on_field);
-    _on_bench_players = _players.sublist(_settings.num_of_players_on_field);
+    _on_field_players = new Queue<Player>.from(_players.sublist(0, _settings.num_of_players_on_field));
+    _on_bench_players = new Queue<Player>.from(_players.sublist(_settings.num_of_players_on_field));
+
+    _possession = _settings.starting_possesion;
+
+    _on_bench_players.addFirst(_qb);
+
+    if(_possession){
+
+    }
 
     print(" --- full Roster --- ");
     for(Player p in _full_roster) print(p.name);
