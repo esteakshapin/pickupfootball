@@ -5,6 +5,7 @@ class Settings{
   int _rotate_num_of_people, _score_amnt, _num_of_players_on_field;
   bool _starting_possesion;
 
+  // colors for our app
   static final Color darkGreen = Color(0xFF405d3a);
   static final Color lightGreen = Color(0xFF109648);
   static final Color apricot = Color(0xFFFFC9AD);
@@ -15,6 +16,17 @@ class Settings{
   static final Color firebrick = Color(0xFFAB3428);
   static final Color emerald = Color(0xFF21E874);
 
+  // const values for drive end
+  static final String TOUCHDOWN = "Touchdown";
+  static final String PUNT = "Punt";
+  static final String TURNOVERONDOWNS = "Turn Over On Downs";
+  static final String PICK = "Pick";
+  static final String PICKSIX = "Pick Six";
+  static final String FUMBLE = "Fumble";
+  static final String SAFETY = "Safety";
+
+  static final List<String> driveEndOptions = [TOUCHDOWN, PUNT, TURNOVERONDOWNS, PICK, PICKSIX, FUMBLE, SAFETY];
+  static final List<int> turnOverPoints = [1, 0, 0, 0, -1, 0, 0];
 
   Settings(this._qb_playing_offense_and_defense, this._rotate_num_of_people,
       this._score_amnt, this._starting_possesion, this._num_of_players_on_field);

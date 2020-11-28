@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:pickupfootball/screens/game_page/end_drive_pop_up.dart';
 import 'package:pickupfootball/screens/game_page/score_board.dart';
 
 import '../../Player.dart';
@@ -25,6 +26,9 @@ class _GamePageState extends State<GamePage> {
   List<Player> _players;
   Settings _settings;
   bool _possession;
+  bool _show_pop_up = false;
+
+  int home_score = 0, away_score = 0;
 
   Queue<Player> _on_field_players;
   Queue<Player> _on_bench_players;
@@ -82,6 +86,8 @@ class _GamePageState extends State<GamePage> {
 
     //adding players going from field to bench
     addBenchPlayer(temp_d_p);
+
+    _possession = true;
   }
 
   void defensiveTransition() {
@@ -103,6 +109,8 @@ class _GamePageState extends State<GamePage> {
 
     //adding players going from bench to field
     addOnFieldPlayer(temp_b_p);
+
+    _possession=false;
   }
 
   @override
@@ -168,12 +176,7 @@ class _GamePageState extends State<GamePage> {
 
   void endDrive() {
     setState(() {
-      _possession = !_possession;
-      if (_possession) {
-        offensiveTransition();
-      } else {
-        defensiveTransition();
-      }
+      show_pop_up();
     });
   }
 
@@ -184,6 +187,81 @@ class _GamePageState extends State<GamePage> {
     super.dispose();
   }
 
+  void hide_pop_up(){
+    if(_show_pop_up){
+      setState(() {
+        _show_pop_up = false;
+      });
+    }
+  }
+
+  void show_pop_up(){
+    if(!_show_pop_up){
+      setState(() {
+        _show_pop_up = true;
+      });
+    }
+  }
+
+  void finish_drive(String value){
+
+    // actions for turnover when offense finished drive
+    if(_possession){
+      print("we have possesiomn");
+      for(String option in Settings.driveEndOptions){
+
+        //finding which drive ending scenario occurred
+        if (value == option){
+          //retrieving the value of the turnover
+          int scr_amt = Settings.turnOverPoints[Settings.driveEndOptions.indexOf(option)];
+          scr_amt *= _settings.score_amnt;
+
+          if(scr_amt >= 0){
+            setState(() {
+              defensiveTransition();
+              home_score += scr_amt;
+            });
+          }else{
+            setState(() {
+              away_score += -scr_amt;
+              defensiveTransition();
+              offensiveTransition();
+            });
+          }
+        }
+      }
+    }else{
+      print("we do not have possession");
+      for(String option in Settings.driveEndOptions){
+        if (value == option){
+          int scr_amt = Settings.turnOverPoints[Settings.driveEndOptions.indexOf(option)];
+          scr_amt *= _settings.score_amnt;
+
+          if (scr_amt >= 0){
+            // defense either scored or turned over. Offense needs to take field
+            setState(() {
+              offensiveTransition();
+              away_score += scr_amt;
+            });
+
+          }else{
+            setState(() {
+              home_score += -scr_amt;
+
+              // bringing us back to defense
+              offensiveTransition();
+              defensiveTransition();
+            });
+          }
+
+        }
+      }
+    }
+
+    hide_pop_up();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return OKToast(
@@ -192,49 +270,60 @@ class _GamePageState extends State<GamePage> {
           centerTitle: true,
           title: Text("Game Time"),
         ),
-        body: Center(
-          child: ListView(
-            children: [
-              Container(
-                padding: kIsWeb
-                    ? EdgeInsets.fromLTRB(40, 10, 40, 30)
-                    : EdgeInsets.all(20),
-                child: Column(
+        body: Stack(
+          children: [
+            GestureDetector(
+              onTap: () => hide_pop_up(),
+              child: Center(
+                child: ListView(
                   children: [
-                    ScoreBoard(endDrive, _possession),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Wrap(
-                      spacing: 20.0,
-                      runSpacing: 20.0,
-                      children: [
-                        OnField(
-                          _on_field_players.toList(),
-                          "On Field",
-                          Settings.lightGreen,
-                          qbTileColor: Settings.cream,
-                          rotationTileColor: Settings.slateGray,
-                          num_of_rotation: num_of_rotation,
-                          tile_icon: Icons.exit_to_app_sharp,
-                        ),
-                        OnField(
-                          _on_bench_players.toList(),
-                          "On Bench",
-                          Settings.lightRed,
-                          qbTileColor: Settings.cream,
-                          rotationTileColor: Settings.slateGray,
-                          num_of_rotation: num_of_rotation,
-                          tile_icon: null,
-                        ),
-                        OnField(_full_roster, "Roster", Settings.lightBlue)
-                      ],
+                    Container(
+                      padding: kIsWeb
+                          ? EdgeInsets.fromLTRB(40, 10, 40, 30)
+                          : EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          ScoreBoard(endDrive, _possession, home_score, away_score),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Wrap(
+                            spacing: 20.0,
+                            runSpacing: 20.0,
+                            children: [
+                              OnField(
+                                _on_field_players.toList(),
+                                "On Field",
+                                Settings.lightGreen,
+                                qbTileColor: Settings.cream,
+                                rotationTileColor: Settings.slateGray,
+                                num_of_rotation: num_of_rotation,
+                                tile_icon: Icons.exit_to_app_sharp,
+                              ),
+                              OnField(
+                                _on_bench_players.toList(),
+                                "On Bench",
+                                Settings.lightRed,
+                                qbTileColor: Settings.cream,
+                                rotationTileColor: Settings.slateGray,
+                                num_of_rotation: num_of_rotation,
+                                tile_icon: null,
+                              ),
+                              OnField(_full_roster, "Roster", Settings.lightBlue)
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: (_show_pop_up) ? EndDrivePopUp(finish_drive, hide_pop_up) : null,
+            )
+          ],
         ),
       ),
     );
