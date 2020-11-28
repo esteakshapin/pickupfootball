@@ -117,6 +117,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
               ),
               RaisedButton(
                 child: Text("End Game"),
+                onPressed: () => Navigator.of(context).pop(),
               )
             ],
           )
