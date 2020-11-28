@@ -31,6 +31,9 @@
 .pub/
 /build/
 
+# making sure web builds are there
+!/build/web
+
 # Web related
 lib/generated_plugin_registrant.dart
 
