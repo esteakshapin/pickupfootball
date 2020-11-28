@@ -123,8 +123,8 @@ class _GamePageState extends State<GamePage> {
     _full_roster = _players.sublist(0);
     for (Player player in _players) {
       if (player.position == "QB") _qb = player;
-      _players.remove(_qb);
     }
+    _players.remove(_qb);
     print(_qb.name);
     _players = _shuffle_players(_players);
     _on_field_players = new Queue<Player>.from(
