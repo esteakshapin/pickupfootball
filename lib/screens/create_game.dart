@@ -170,7 +170,7 @@ class _CreateGameSettingsState extends State<CreateGameSettings> {
                         ],
                       ),
                       CreateGameSettings.default_height_spacer,
-                      Text("Rotate after how many drives?"),
+                      Text("Rotate how many players?"),
                       CreateGameSettings.default_height_spacer,
                       Row(
                         children: [
