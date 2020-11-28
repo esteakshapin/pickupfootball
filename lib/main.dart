@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pickupfootball/screens/lobby_page/lobby_page.dart';
 import 'package:pickupfootball/settings.dart';
 
-import '../Player.dart';
-import '../screens/home_page.dart';
+import 'Player.dart';
+import 'screens/home_page.dart';
 
 void main() {
   runApp(MyApp());
